@@ -1,0 +1,87 @@
+import streamlit as st
+import pandas as pd
+import numpy as np
+
+# Set page config
+st.set_page_config(page_title="Project Financial Summary", layout="wide")
+
+# Custom CSS for layout
+st.markdown("""
+<style>
+    .reportview-container .main .block-container {
+        padding-top: 1rem;
+        padding-bottom: 1rem;
+        padding-left: 2rem;
+        padding-right: 2rem;
+    }
+    .dataframe {
+        font-size: 12px;
+    }
+</style>
+""", unsafe_allow_html=True)
+
+# Header
+st.title("Project Financial Summary by PM (in USD)")
+
+# Create sample data
+data = {
+    "Project": [
+        "Bachur Walter",
+        "JENTETCH Consulting",
+        "JENTETCH System Review",
+        "Total JENTETCH Consulting",
+        "StaffTru",
+        "StaffTru Advanced Implementation",
+        "StaffTru Analytics",
+        "StaffTru System Review",
+        "StaffTru Business Process Review",
+        "Total StaffTru",
+        "Total Bachur Walter",
+        "Dave Harlington",
+        "Been Verified",
+        "Been Verified Quick Start Implementation",
+        "Been Verified Business Process Review",
+        "Total Been Verified",
+        "Grand Financial Services",
+        "Grand Financial Quick Start Implementation",
+        "Grand system integration",
+        "Total Grand Financial Services",
+        "Conductor",
+        "Conductor Standard Implementation",
+        "Conductor Business Process Review",
+        "System consulting for Conductor",
+        "Total Conductor",
+        "Intelligent Audit",
+        "Intelligent Audit Standard Implementation",
+        "Intelligent Audit System Review",
+        "Intelligent Audit Jumpstart",
+        "Intelligent Audit Business Process Review",
+        "Total Intelligent Audit"
+    ],
+    "Contract Value": [np.nan, 5400, 5400, 5400, np.nan, 38250, 33300, 5400, 142000, 218950, 224350, np.nan, np.nan, 12750, 260000, 272750, np.nan, 36450, 100000, 136450, np.nan, 25500, 200000, 10000, 235500, np.nan, 35500, 5400, 35000, 201000, 276900],
+    "Revenues": [np.nan, 5515.67, 5515.67, 5515.67, np.nan, 38392.13, 117050.00, 5400.00, 0.00, 160842.13, 166357.80, np.nan, np.nan, 12750.00, 195000.00, 207750.00, np.nan, 36450.00, 111000.00, 147450.00, np.nan, 25500.00, 0.00, 103111.00, 128611.00, np.nan, 37152.33, 3600.00, 35000.00, 17888.20, 93640.53],
+    "A/R": [np.nan, 0.00, 0.00, 0.00, np.nan, 0.00, 0.00, 27261.50, 48621.69, 65883.39, 65883.39, np.nan, np.nan, 0.00, 65000.00, 65000.00, np.nan, 0.00, 0.00, 0.00, np.nan, 0.00, 11781.32, 23160.00, 34941.32, np.nan, 9905.00, 0.00, 0.00, 134111.80, 144016.80],
+    # ... Add other columns here ...
+    "Gross Profit %": [np.nan, 62.97, 62.97, 62.97, np.nan, 81.92, 91.36, 43.53, 84.82, 76.63, 76.30, np.nan, np.nan, 16.34, 80.14, 77.15, np.nan, 81.35, 99.33, 94.34, np.nan, 86.05, 95.00, 96.13, 94.88, np.nan, 62.65, 84.93, 79.04, 95.11, 89.39]
+}
+
+df = pd.DataFrame(data)
+
+# Function to style the dataframe
+def style_dataframe(df):
+    return df.style.format({
+        'Contract Value': '${:,.2f}',
+        'Revenues': '${:,.2f}',
+        'A/R': '${:,.2f}',
+        'Gross Profit %': '{:.2f}%'
+    }).set_properties(**{
+        'background-color': 'white',
+        'color': 'black',
+        'border-color': 'lightgrey'
+    })
+
+# Display the dataframe
+st.dataframe(style_dataframe(df), height=600)
+
+# Footer (placeholder for video controls)
+st.write("0:37 / 2:23")
